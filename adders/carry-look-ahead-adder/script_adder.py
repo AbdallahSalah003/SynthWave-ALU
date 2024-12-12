@@ -17,8 +17,8 @@ def generate_carry_lines(file,bits):
         file.write('\n')
 
 def generate_cla_verilog(bits):
-    with open(f'cla_adder_{bits}.v','w') as file:
-        file.write(f"module cla_adder(\n\tinput [{bits-1}:0] A,\n\tinput [{bits-1}:0] B,\n\tinput Cin,\n\toutput [{bits-1}:0] Sum,\n\toutput Cout);\n")
+    with open('carry_look_ahead_adder.v','w') as file:
+        file.write(f"module carry_look_ahead_adder(\n\tinput [{bits-1}:0] A,\n\tinput [{bits-1}:0] B,\n\tinput Cin,\n\toutput [{bits-1}:0] Sum,\n\toutput Cout);\n")
         file.write(f"\twire [{bits-1}:0] G, P,C;\n")
         file.write(f"\tassign G = A & B;\n")
         file.write(f"\tassign P = A ^ B;\n")
