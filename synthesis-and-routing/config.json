@@ -1,0 +1,23 @@
+{
+  "meta": {
+    "version": 2,
+    "flow": [
+      "Yosys.Synthesis",
+      "OpenROAD.Floorplan",
+      "OpenROAD.GlobalPlacementSkipIO",
+      "OpenROAD.IOPlacement",
+      "OpenROAD.GlobalPlacement",
+      "OpenROAD.RepairDesignPostGPL",
+      "OpenROAD.DetailedPlacement",
+      "OpenROAD.CTS",
+      "OpenROAD.GlobalRouting",
+      "OpenROAD.DetailedRouting"
+    ]
+  },
+  "DESIGN_NAME": "TopModule",
+  "VERILOG_FILES": ["dir::src/basic-rtl.v"],
+  "CLOCK_PERIOD": 20.0,
+  "SYNTH_STRATEGY": "DELAY 0",
+  "SDC_FILE": "/home/abdallah/synthware-alu/sdcs/synthesis.sdc",
+  "PNR_SDC_FILE": "/home/abdallah/synthware-alu/sdcs/pnr.sdc"
+}
