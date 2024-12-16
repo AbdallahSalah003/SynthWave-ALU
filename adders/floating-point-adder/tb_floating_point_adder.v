@@ -1,4 +1,4 @@
-module tb_carry_bypass_adder;
+module tb_floating_point_adder;
     reg [31:0] A, B;
     wire [31:0] Sum;
     wire Cout, Overflow;
@@ -39,68 +39,26 @@ module tb_carry_bypass_adder;
     endtask
 
     initial begin
-        // Overflow of positive numbers 
+        // Addition of two positive numbers 
+        A = 32'b00111110100110011001100110011010; // 0.3
+        B = 32'b01000011111110100010000000000000; // 500.25
+        test_case_number = test_case_number + 1;
+        #10;  
+        check_result(A, B, 32'b01000011111110100100011001100110, 0, Sum, Overflow, Cout, 0); // 500.55
+
+        // Addition of a positive and a negative number
         A = 32'b10111110100110011001100110011010; // -0.3
         B = 32'b01000011111110100010000000000000; // 500.25
         test_case_number = test_case_number + 1;
         #10;  
-        check_result(A, B, 32'b01000011111110011111100110011010, 0, Sum, Overflow, Cout, 0);
+        check_result(A, B, 32'b01000011111110011111100110011010, 0, Sum, Overflow, Cout, 0); // 499.95
 
-        // //Overflow of negative numbers 
-        // A = 32'h80000000;   // -2^31, signed negative number
-        // B = 32'h80000000;  
-        // Cin = 0;
-        // test_case_number = test_case_number + 1;
-        // #10;
-        // check_result(A, B, 32'h00000000, 1, Sum, Overflow, Cout, 1, Cin);
-
-        // // Addition of a positive and a negative number
-        // A = 32'h7FFFFFFF;  
-        // B = 32'h80000000;  
-        // Cin = 0;
-        // test_case_number = test_case_number + 1;
-        // #10;
-        // check_result(A, B, 32'hFFFFFFFF, 0, Sum, Overflow, Cout, 0, Cin);
-
-        // // Addition of two positive numbers
-        // A = 32'h12345678;
-        // B = 32'h87654321;
-        // Cin = 0;
-        // test_case_number = test_case_number + 1;
-        // #10;
-        // check_result(A, B, 32'h99999999, 0, Sum, Overflow, Cout, 0, Cin);
-
-        // // Addition of two negative numbers 
-        // A = 32'hFFFFFFFE;  // -2 in decimal
-        // B = 32'hFFFFFFFD;  // -3 in decimal
-        // Cin = 0;
-        // test_case_number = test_case_number + 1;
-        // #10;
-        // check_result(A, B, 32'hFFFFFFFB, 0, Sum, Overflow, Cout, 1, Cin);
-
-        // // Random Test Case 1
-        // A = 32'h7A5B2C1D;
-        // B = 32'h2F1D3C5B;
-        // Cin = 0;
-        // test_case_number = test_case_number + 1;
-        // #10;
-        // check_result(A, B, 32'hA9786878, 1, Sum, Overflow, Cout, 0, Cin);
-
-        // //Random Test Case 2
-        // A = 32'h12345678;
-        // B = 32'h87654321;
-        // Cin = 1;
-        // test_case_number = test_case_number + 1;
-        // #10;
-        // check_result(A, B, 32'h9999999a, 0, Sum, Overflow, Cout, 0, Cin);
-
-        // //Random Test Case 3
-        // A = 32'hABCDE123;
-        // B = 32'h54321DEF;
-        // Cin = 1;
-        // test_case_number = test_case_number + 1;
-        // #10;
-        // check_result(A, B, 32'hFFFFFF13, 0, Sum, Overflow, Cout, 0, Cin);
+        // Addition of two negative numbers 
+        A = 32'b11000000010011000010100011110110; // -3.19
+        B = 32'b11000001000000111000010100011111; // -8.22
+        test_case_number = test_case_number + 1;
+        #10;  
+        check_result(A, B, 32'b11000001001101101000111101011100, 0, Sum, Overflow, Cout, 0); // -11.41
 
         $display("Total Test Cases: %0d, Success: %0d, Failures: %0d", 
                 success_tcs + failure_tcs, success_tcs, failure_tcs);
